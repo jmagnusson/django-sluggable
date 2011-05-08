@@ -48,7 +48,7 @@ class SluggableModel(models.Model):
             # the current value of the "slug" variable is safe to use.
             pass
         
-        return slug
+        return slug[0:50]
     
     def _generate_base_slug(self):
         """
