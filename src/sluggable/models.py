@@ -61,9 +61,8 @@ class SluggableModel(models.Model):
         return slugify(u'%s' % self)
     
     def save(self, *args, **kwargs):
-        if self.slug is None or self.slug == '':
-            self.slug = self._generate_slug()
-        
+        self.slug = self._generate_slug()
+
         return super(SluggableModel, self).save(*args, **kwargs)
     
     class Meta:
