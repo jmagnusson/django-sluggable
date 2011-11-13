@@ -3,7 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
  
 class SluggableModel(models.Model):
-    slug = models.SlugField(editable=False)
+    slug = models.SlugField()
     
     def _get_queryset_for_slug(self):
         """
