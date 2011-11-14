@@ -5,7 +5,8 @@ from django.template.defaultfilters import slugify
  
 class SluggableModel(models.Model):
     slug = models.SlugField(
-            help_text=_("This will be generated automatically if left empty."))
+            help_text=_("This will be generated automatically if left empty."),
+            blank=True)
     
     def _get_queryset_for_slug(self):
         """
