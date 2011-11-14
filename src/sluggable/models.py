@@ -1,9 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.template.defaultfilters import slugify
  
 class SluggableModel(models.Model):
-    slug = models.SlugField()
+    slug = models.SlugField(
+            help_text=_("This will be generated automatically if left empty."))
     
     def _get_queryset_for_slug(self):
         """
