@@ -1,12 +1,7 @@
+from django.utils import six
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.template.defaultfilters import slugify
-
-
-try:
-    from functools import reduce  # py3
-except ImportError:
-    pass
 
 
 class SluggableModel(models.Model):
@@ -26,13 +21,20 @@ class SluggableModel(models.Model):
         # Create the keyword arguments for a new queryset based on the values
         # of this model's "unique_together" fields when they include the "slug"
         # field.
-        combinations = filter(lambda x: 'slug' in x, self._meta.unique_together)
-        if combinations:
-            fields = set(reduce(lambda accumulated, update: accumulated + update, combinations))
-            fields.remove('slug')
-            filter_kwargs = dict(map(lambda x: (x, self.__getattribute__(x)), fields))
-        else:
-            filter_kwargs = {}
+        filter_kwargs = {}
+        unique_together = self._meta.unique_together
+
+        # Normalize
+        if len(unique_together) and \
+           isinstance(unique_together[0], six.string_types):
+            unique_together = (unique_together, )
+
+        for combo in unique_together:
+            if 'slug' in combo:
+                for field in combo:
+                    if field == 'slug':
+                        continue
+                    filter_kwargs[field] = getattr(self, field)
 
         queryset = self._get_queryset_for_slug().filter(**filter_kwargs)
         base_slug = self._generate_base_slug()

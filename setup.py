@@ -1,17 +1,13 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
-    name = 'django-sluggable',
-    version = '1.0.1',
-    description = 'Automatically generated unique model slugs for Django models.',
-
-    author = 'Ted Kaemming',
-    author_email = 'ted@kaemming.com',
-    url = 'http://www.github.com/tkaemming/django-sluggable/',
-
-    packages = find_packages('src'),
-    package_dir = {'': 'src'},
-
-    install_requires = ['setuptools']
+    name='django-sluggable',
+    version='1.0.2',
+    description='Automatically generated unique model slugs for Django models.',
+    install_requires=['Django', 'six'],
+    author='Ted Kaemming',
+    author_email='ted@kaemming.com',
+    url='http://www.github.com/tkaemming/django-sluggable/',
+    packages=['sluggable'],
 )

@@ -1,7 +1,10 @@
 .DS_Store
+.cache/
+.tox/
 *.pyc
-
-# Ignore any files and directories created by setuptools...
 build/
 dist/
 *.egg-info
+*.sublime-project
+*.sublime-workspace
+
