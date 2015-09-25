@@ -2,6 +2,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.template.defaultfilters import slugify
 
+
+try:
+    from functools import reduce  # py3
+except ImportError:
+    pass
+
+
 class SluggableModel(models.Model):
     slug = models.SlugField()
 
